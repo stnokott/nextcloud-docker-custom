@@ -3,7 +3,7 @@
 #   .github/workflows/auto-build-on-base-image-change.yml
 #
 
-name: Regular base image update check
+name: Check base image update
 on:
   schedule:
     - cron: "0 0 * * *"
