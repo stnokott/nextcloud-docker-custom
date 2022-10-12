@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       force:
-        description: Set to true to force build even if base image is up-to-date
+        description: Force build
         required: false
         default: false
         type: boolean
