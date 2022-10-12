@@ -8,6 +8,12 @@ on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
+    inputs:
+      force:
+        description: Set to true to force build even if base image is up-to-date
+        required: false
+        default: false
+        type: boolean
   
   
 env:
@@ -29,6 +35,7 @@ jobs:
         with:
           base-image: library/nextcloud:stable-apache
           image: ${{ env.IMAGE_TAG }} # update for your image
+        if: !inputs.force
 
       # only execute subsequent steps if an update is actually NEEDED.
       # unfortunately we need to add an if-condition to all steps now
@@ -38,14 +45,14 @@ jobs:
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-        if: steps.baseupdatecheck.outputs.needs-updating == 'true'
+        if: inputs.force || steps.baseupdatecheck.outputs.needs-updating == 'true'
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2.0.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-        if: steps.baseupdatecheck.outputs.needs-updating == 'true'
+        if: inputs.force || steps.baseupdatecheck.outputs.needs-updating == 'true'
 
       - name: Build and push Docker images
         # You may pin to the exact commit or the version.
@@ -58,4 +65,4 @@ jobs:
           platforms: linux/386,linux/amd64
           cache-from: type=registry,ref=${{ env.IMAGE_TAG }}
           cache-to: type=inline
-        if: steps.baseupdatecheck.outputs.needs-updating == 'true'
+        if: inputs.force || steps.baseupdatecheck.outputs.needs-updating == 'true'
