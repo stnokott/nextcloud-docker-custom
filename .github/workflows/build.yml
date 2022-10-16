@@ -3,7 +3,7 @@
 #   .github/workflows/auto-build-on-base-image-change.yml
 #
 
-name: Build if needed
+name: Build
 on:
   schedule:
     - cron: "0 0 * * *"
