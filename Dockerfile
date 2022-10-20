@@ -56,7 +56,7 @@ SHELL ["/bin/bash", "-c"]
 # Install dependencies to image
 
 RUN apt-get update ; \
-    apt-get install -y libopenblas-base libbz2-dev
+    apt-get install -y libopenblas-base libbz2-dev libmagickcore-6.q16-6-extra
     
 RUN docker-php-ext-install bz2
 
