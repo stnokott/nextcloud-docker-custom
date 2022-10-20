@@ -4,7 +4,8 @@ FROM nextcloud:stable-apache
 RUN apt-get update && apt-get install -y libmagickcore-6.q16-6-extra
 
 # Face Recognition dependencies (https://github.com/matiasdelellis/facerecognition)
-RUN apt-get update && apt-get install -y git libopenblas-dev liblapack-dev cmake libx11-dev php-bz2 && \
+RUN apt-get update && apt-get install -y git libopenblas-dev liblapack-dev cmake libx11-dev libbz2-dev && \
+  docker-php-ext-install bz2 && \
   git clone https://github.com/davisking/dlib.git && \
   cd dlib/dlib && \
   mkdir build && \
