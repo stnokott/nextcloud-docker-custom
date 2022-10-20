@@ -72,7 +72,7 @@ COPY --from=builder /usr/local/lib/php/extensions/no-debug-non-zts-20200930/pdli
 RUN echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/conf.d/pdlib.ini
 
 # Increase memory limits
-RUN echo memory_limit=4G > /usr/local/etc/php/conf.d/zzz-memory-limit.ini
+RUN echo memory_limit=2048M > /usr/local/etc/php/conf.d/zzz-memory-limit.ini
 
 # Pdlib is already installed now on final image without all build dependencies.
 # You could test again if everything is correct, uncommenting the next lines.
