@@ -33,9 +33,7 @@ RUN wget -c -q https://github.com/matiasdelellis/pdlib/archive/$PDLIB_BRANCH.zip
     && make install
 
 # Enable PDlib on builder
-RUN echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/php.ini-development \
-    && echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/php.ini-production \
-    && echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/php.ini
+RUN echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/conf.d/pdlib.ini
 
 # Install bzip2 needed to extract models
 
