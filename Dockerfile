@@ -1,5 +1,7 @@
 FROM nextcloud:stable-apache
 
+SHELL ["/bin/bash", "-c"]
+
 # SVG support
 RUN apt-get update && apt-get install -y libmagickcore-6.q16-6-extra
 
