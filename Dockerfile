@@ -39,8 +39,7 @@ RUN echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/php.ini-develo
 
 # Install bzip2 needed to extract models
 
-RUN apt-get install -y libbz2-dev
-RUN docker-php-ext-install bz2
+RUN apt-get install -y libbz2-dev && docker-php-ext-install bz2
 
 # Test PDlib instalation on builder
 
@@ -59,7 +58,9 @@ SHELL ["/bin/bash", "-c"]
 # Install dependencies to image
 
 RUN apt-get update ; \
-    apt-get install -y libopenblas-base
+    apt-get install -y libopenblas-base libbz2-dev
+    
+RUN docker-php-ext-install bz2
 
 # Install dlib and PDlib to image
 
@@ -70,12 +71,10 @@ COPY --from=builder /usr/local/lib/libdlib.so* /usr/local/lib/
 COPY --from=builder /usr/local/lib/php/extensions/no-debug-non-zts-20200930/pdlib.so /usr/local/lib/php/extensions/no-debug-non-zts-20200930/
 
 # Enable PDlib on final image
-RUN echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/php.ini-development \
-    && echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/php.ini-production \
-    && echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/php.ini
+RUN echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/conf.d/pdlib.ini
 
 # Increase memory limits
-RUN echo memory_limit=4096M > /usr/local/etc/php/conf.d/memory-limit.ini
+RUN echo memory_limit=4G > /usr/local/etc/php/conf.d/zzz-memory-limit.ini
 
 # Pdlib is already installed now on final image without all build dependencies.
 # You could test again if everything is correct, uncommenting the next lines.
