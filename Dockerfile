@@ -26,5 +26,6 @@ RUN apt-get update && apt-get install -y git libopenblas-dev liblapack-dev cmake
   cd .. && \
   rm -rf pdlib && \
   echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/php.ini-development && \
-  echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/php.ini-production
+  echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/php.ini-production && \
+  echo -e '[pdlib]\nextension="pdlib.so"' >> /usr/local/etc/php/php.ini
  
