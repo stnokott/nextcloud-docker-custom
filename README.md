@@ -4,4 +4,6 @@
 # nextcloud-docker-custom
 Nextcloud Docker image with modifications
 
+https://hub.docker.com/r/stnokott/nextcloud-custom
+
 `docker pull stnokott/nextcloud-custom:latest`
