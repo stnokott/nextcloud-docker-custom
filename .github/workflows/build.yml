@@ -31,7 +31,7 @@ jobs:
 
       - name: Docker Image Update Checker
         id: baseupdatecheck
-        uses: lucacome/docker-image-update-checker@v1.1.1
+        uses: lucacome/docker-image-update-checker@v1.2.0
         with:
           base-image: library/nextcloud:stable-apache
           image: ${{ env.IMAGE_TAG }} # update for your image
